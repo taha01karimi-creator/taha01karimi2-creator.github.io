@@ -1,0 +1,315 @@
+/* =========================================
+   1. تنظیمات پایه و متغیرها (Variables)
+========================================= */
+:root {
+    /* پالت رنگی */
+    --bg-dark: #11111e;
+    --bg-card: #1a1a2e;
+    --text-light: #e0e0e0;
+    --text-muted: #8a8aae;
+    --primary-color: #3333ff;
+    --secondary-color: #ff00cc;
+    --accent-gradient: linear-gradient(to right, #ffffff, #a0a0ff);
+    --neon-gradient: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+    
+    /* اندازه‌ها */
+    --container-width: 1100px;
+    --border-radius: 20px;
+}
+
+/* ریست و تنظیمات کلی */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* اسکرول نرم بین بخش‌ها */
+}
+
+body {
+    font-family: 'Yekan Bakh', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+    overflow-x: hidden; /* جلوگیری از اسکرول افقی ناخواسته */
+}
+
+/* کلاس کمکی برای محدود کردن عرض محتوا */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.text-center { text-align: center; }
+
+/* =========================================
+   2. نوار ناوبری (Navbar)
+========================================= */
+.navbar {
+    position: sticky; /* چسبیدن به بالای صفحه */
+    top: 0;
+    z-index: 100;
+    padding: 1rem 0;
+    /* افکت شیشه‌ای (Glassmorphism) برای هدر */
+    background: rgba(17, 17, 30, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 900;
+    font-size: 1.5rem;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    margin-left: 2rem;
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+.nav-links a:not(.nav-btn):hover {
+    color: var(--secondary-color);
+}
+
+/* دکمه خاص داخل نوار ناوبری */
+.nav-btn {
+    padding: 8px 20px;
+    background: var(--primary-color);
+    border-radius: 50px;
+    margin-left: 0 !important; /* حذف مارجین چپ برای آخرین آیتم */
+}
+.nav-btn:hover { background: var(--secondary-color); }
+
+
+/* =========================================
+   3. بخش اصلی (Hero Section)
+========================================= */
+.hero-section {
+    min-height: 90vh; /* ارتفاع تقریباً کل صفحه */
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 100px 0; /* فاصله از بالا و پایین */
+    
+    /* پس‌زمینه متحرک */
+    background-image: radial-gradient(circle at 50% 50%, #2c2c4e 0%, var(--bg-dark) 70%);
+    background-size: 150% 150%;
+    animation: pulseLight 10s ease-in-out infinite alternate;
+}
+
+@keyframes pulseLight {
+    0% { background-size: 130% 130%; background-position: center; }
+    100% { background-size: 160% 160%; background-position: top; }
+}
+
+.hero-content {
+    text-align: center;
+    z-index: 2;
+    max-width: 800px;
+    
+    /* انیمیشن ورود محتوا */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out forwards 0.5s;
+}
+
+/* المان درخشان پشت تیتر */
+.hero-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 600px;
+    background: var(--secondary-color);
+    filter: blur(150px);
+    opacity: 0.2;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.gradient-text {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =========================================
+   4. دکمه‌های نئونی (Buttons)
+========================================= */
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.neon-btn {
+    text-decoration: none;
+    padding: 15px 40px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+    border-radius: 50px;
+    position: relative;
+    transition: all 0.4s ease;
+    overflow: hidden;
+    z-index: 1;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+/* دکمه اصلی (Primary) */
+.neon-btn.primary {
+    background-color: var(--primary-color);
+}
+.neon-btn.primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--neon-gradient);
+    z-index: -1;
+    transition: opacity 0.4s ease;
+    opacity: 0;
+}
+.neon-btn.primary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -10px rgba(51, 51, 255, 0.7);
+}
+.neon-btn.primary:hover::before { opacity: 1; }
+
+/* دکمه ثانویه (Secondary) - حالت شیشه‌ای */
+.neon-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.neon-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+/* =========================================
+   5. بخش ویژگی‌ها (Features Section)
+========================================= */
+.features-section {
+    padding: 100px 0;
+    background-color: var(--bg-dark);
+    position: relative;
+    z-index: 5; /* بالاتر از هیرو */
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
+}
+
+.features-grid {
+    display: grid;
+    /* ایجاد سه ستون خودکار */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background: var(--bg-card);
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px); /* حرکت به بالا هنگام هاور */
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+    border-color: rgba(51, 51, 255, 0.3);
+}
+
+.icon {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: var(--text-muted);
+}
+
+/* =========================================
+   6. فوتر (Footer)
+========================================= */
+footer {
+    background: #0a0a14;
+    padding: 2rem 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* =========================================
+   7. انیمیشن‌های کمکی (Utilities)
+========================================= */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================
+   8. واکنش‌گرایی (Responsive Design)
+========================================= */
+@media (max-width: 768px) {
+    /* تنظیمات موبایل */
+    .nav-links {
+        display: none; /* مخفی کردن لینک‌ها در موبایل برای سادگی */
+    }
+    
+    h1 { font-size: 2.5rem; }
+    .subtitle { font-size: 1.1rem; }
+    
+    .hero-buttons {
+        flex-direction: column; /* دکمه‌ها زیر هم قرار بگیرند */
+        width: 100%;
+    }
+    .neon-btn { width: 100%; text-align: center; }
+    
+    .features-grid {
+        grid-template-columns: 1fr; /* کارت‌ها زیر هم */
+    }
+}
